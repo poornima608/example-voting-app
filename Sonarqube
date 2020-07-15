@@ -2,7 +2,7 @@ node{
 stage('SOM Checkout'){
 git 'https://github.com/prabhavagrawal/example-voting-app.git'
 }
-stage{'Compile-Package'){
+stage('Compile-Package'){
 def mvnHome = tool name: 'maven-3', type: 'maven'
 cmd "${mvnHome}/bin/mvn package"
 }
