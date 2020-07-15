@@ -4,13 +4,13 @@ git 'https://github.com/prabhavagrawal/example-voting-app.git'
 }
 stage('Compile-Package'){
 def mvnHome = tool name: 'maven', type: 'maven'
-cmd "${mvnHome}/bin/mvn package"
+cmd '"${mvnHome}/bin/mvn package"'
 }
 
 stage('SonarQube Analysis') {
-def mvnHome = tool name: 'maven-3',type: 'maven'
+def mvnHome = tool name: 'maven',type: 'maven'
 withSonarQubeEnv('sonar-6') {
-sh "${mvnHome}/bin/mvn sonar:sonar"
+cmd '"${mvnHome}/bin/mvn sonar:sonar"'
 }
 }
 }
