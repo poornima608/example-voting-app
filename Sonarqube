@@ -1,0 +1,16 @@
+node{
+stage('SOM Checkout'){
+git 'https://github.com/prabhavagrawal/example-voting-app.git'
+}
+stage{'Compile-Package'){
+def mvnHome = tool name: 'maven-3', type: 'maven'
+cmd "${mvnHome}/bin/mvn package"
+}
+
+stage('SonarQube Analysis') {
+def mvnHome = tool name: 'maven-3',type: 'maven'
+withSonarQubeEnv('sonar-6') {
+sh "${mvnHome}/bin/mvn sonar:sonar"
+}
+}
+}
