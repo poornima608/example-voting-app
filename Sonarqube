@@ -1,16 +1,23 @@
-node{
-stage('SOM Checkout'){
-git 'https://github.com/prabhavagrawal/example-voting-app.git'
-}
-stage('Compile-Package'){
-def mvnHome = tool name: 'maven', type: 'maven'
-cmd '"${mvnHome}/bin/mvn package"'
-}
+pipeline {
+    agent any
+    tools { 
+        maven 'maven' 
+        jdk 'jdk8' 
+    }
+    stages {
+        stage ('Initialize') {
+            steps {
+                sh '''
+                    echo "PATH = ${PATH}"
+                    echo "M2_HOME = ${M2_HOME}"
+                ''' 
+            }
+        }
 
-stage('SonarQube Analysis') {
-def mvnHome = tool name: 'maven',type: 'maven'
-withSonarQubeEnv('sonar-6') {
-cmd '"${mvnHome}/bin/mvn sonar:sonar"'
-}
-}
+        stage ('Build') {
+            steps {
+                echo 'This is a minimal pipeline.'
+            }
+        }
+    }
 }
